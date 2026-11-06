@@ -1,0 +1,6 @@
+{
+  "name": "Intelligent Segmentation Platform",
+  "description": "Enterprise customer segmentation and AI-assisted clustering platform with advanced statistics, automated business profiling, and strategic action plans.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
