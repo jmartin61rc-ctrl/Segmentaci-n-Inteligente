@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Check, ArrowRight, ShieldCheck, Zap, AlertCircle } from 'lucide-react';
+import { X, Check } from 'lucide-react';
 import { OptimalKRecommendation } from '../types/segmentation';
 
 interface ScenarioComparisonModalProps {
@@ -30,7 +30,7 @@ export const ScenarioComparisonModal: React.FC<ScenarioComparisonModalProps> = (
     if (k <= 3) {
       return {
         operationalFeasibility: 'Muy Alta',
-        operationalFeasibilityColor: 'text-emerald-400',
+        operationalFeasibilityColor: 'text-emerald-600 dark:text-emerald-400',
         advantages: [
           'Estructura simple y directa para capacitar a la fuerza de ventas.',
           'Bajo costo de creación de contenidos y campañas de marketing.',
@@ -40,15 +40,15 @@ export const ScenarioComparisonModal: React.FC<ScenarioComparisonModalProps> = (
           'Menor granularidad: clientes con necesidades sutilmente distintas quedan agrupados juntos.',
           'Mayor dispersión intra-cluster (WSS superior).',
         ],
-        recommendedFor: 'Organizaciones con equipos de marketing pequeños o iniciando su estrategia de segmentación.',
+        recommendedFor: 'Organizaciones con equipos comerciales reducidos o iniciando su estrategia de segmentación.',
       };
     } else if (k <= 5) {
       return {
         operationalFeasibility: 'Óptima (Equilibrio de Oro)',
-        operationalFeasibilityColor: 'text-cyan-400',
+        operationalFeasibilityColor: 'text-blue-600 dark:text-blue-400',
         advantages: [
           'Permite diferenciar claramente Champions, Potenciales, Tradicionales y Clientes en Riesgo.',
-          'Excelente balance entre interpretabilidad gerencial y precisión matemática.',
+          'Excelente balance entre interpretabilidad gerencial y rigor matemático.',
           'Campañas de precios y fidelización altamente focalizadas.',
         ],
         disadvantages: [
@@ -60,7 +60,7 @@ export const ScenarioComparisonModal: React.FC<ScenarioComparisonModalProps> = (
     } else {
       return {
         operationalFeasibility: 'Exigente / Alta Complejidad',
-        operationalFeasibilityColor: 'text-amber-400',
+        operationalFeasibilityColor: 'text-amber-600 dark:text-amber-400',
         advantages: [
           'Máxima personalización analítica y mínima inercia WSS intra-cluster.',
           'Detección precisa de micro-nichos de alto valor o riesgos específicos.',
@@ -78,21 +78,21 @@ export const ScenarioComparisonModal: React.FC<ScenarioComparisonModalProps> = (
   const analysisB = getScenarioAnalysis(scenarioB);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-      <div className="relative w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-slate-950/80 backdrop-blur-xs select-none">
+      <div className="relative w-full max-w-4xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[90vh]">
         {/* Modal Header */}
-        <div className="p-5 border-b border-slate-800 flex items-center justify-between">
+        <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
           <div>
-            <h3 className="text-lg font-bold text-white tracking-tight">
+            <h3 className="text-base font-bold text-slate-900 dark:text-white tracking-tight">
               Módulo 10: Comparador de Escenarios (Estadístico vs. Decisión de Negocio)
             </h3>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
               Evalúe ventajas, desventajas y factibilidad operacional antes de ejecutar el clustering.
             </p>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors cursor-pointer"
+            className="p-1.5 text-slate-400 hover:text-slate-700 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -103,15 +103,15 @@ export const ScenarioComparisonModal: React.FC<ScenarioComparisonModalProps> = (
           {/* Scenario Selectors */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Scenario A */}
-            <div className="p-4 rounded-xl bg-indigo-950/20 border border-indigo-500/40 space-y-3">
+            <div className="p-4 rounded-xl bg-blue-50/40 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800/60 space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold text-indigo-400 uppercase tracking-wider">
+                <span className="text-xs font-bold text-blue-700 dark:text-blue-400 uppercase tracking-wider">
                   Escenario A (Estadístico / Referencia)
                 </span>
                 <select
                   value={scenarioA}
                   onChange={(e) => setScenarioA(Number(e.target.value))}
-                  className="px-2.5 py-1 bg-slate-950 border border-indigo-500/60 rounded text-xs text-white font-mono"
+                  className="px-2.5 py-1 bg-white dark:bg-slate-900 border border-blue-300 dark:border-blue-700 rounded text-xs text-slate-900 dark:text-white font-mono"
                 >
                   {metrics.map((m) => (
                     <option key={m.k} value={m.k}>
@@ -122,27 +122,27 @@ export const ScenarioComparisonModal: React.FC<ScenarioComparisonModalProps> = (
               </div>
 
               <div className="grid grid-cols-2 gap-2 text-xs font-mono">
-                <div className="p-2 bg-slate-950/60 rounded border border-slate-800">
-                  <span className="text-slate-400 block text-[10px]">Silueta:</span>
-                  <span className="text-cyan-300 font-bold">{metricA?.silhouette}</span>
+                <div className="p-2 bg-white dark:bg-slate-900/60 rounded border border-slate-200 dark:border-slate-800">
+                  <span className="text-slate-500 dark:text-slate-400 block text-[10px]">Silueta:</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">{metricA?.silhouette}</span>
                 </div>
-                <div className="p-2 bg-slate-950/60 rounded border border-slate-800">
-                  <span className="text-slate-400 block text-[10px]">Inercia WSS:</span>
-                  <span className="text-indigo-300 font-bold">{metricA?.wss}</span>
+                <div className="p-2 bg-white dark:bg-slate-900/60 rounded border border-slate-200 dark:border-slate-800">
+                  <span className="text-slate-500 dark:text-slate-400 block text-[10px]">Inercia WSS:</span>
+                  <span className="text-blue-700 dark:text-blue-300 font-bold">{metricA?.wss}</span>
                 </div>
               </div>
 
               <div className="text-xs space-y-2 pt-1">
                 <div>
-                  <span className="text-slate-400 text-[11px] block">Factibilidad de Operación:</span>
+                  <span className="text-slate-500 dark:text-slate-400 text-[11px] block">Factibilidad de Operación:</span>
                   <span className={`font-semibold ${analysisA.operationalFeasibilityColor}`}>
                     {analysisA.operationalFeasibility}
                   </span>
                 </div>
 
                 <div>
-                  <span className="text-emerald-400 font-semibold block text-[11px]">✓ Ventajas:</span>
-                  <ul className="list-disc pl-4 text-slate-300 text-[11px] space-y-1 mt-0.5">
+                  <span className="text-emerald-700 dark:text-emerald-400 font-semibold block text-[11px]">✓ Ventajas:</span>
+                  <ul className="list-disc pl-4 text-slate-600 dark:text-slate-300 text-[11px] space-y-1 mt-0.5">
                     {analysisA.advantages.map((adv, i) => (
                       <li key={i}>{adv}</li>
                     ))}
@@ -150,8 +150,8 @@ export const ScenarioComparisonModal: React.FC<ScenarioComparisonModalProps> = (
                 </div>
 
                 <div>
-                  <span className="text-rose-400 font-semibold block text-[11px]">✕ Desventajas:</span>
-                  <ul className="list-disc pl-4 text-slate-400 text-[11px] space-y-1 mt-0.5">
+                  <span className="text-rose-700 dark:text-rose-400 font-semibold block text-[11px]">✕ Desventajas:</span>
+                  <ul className="list-disc pl-4 text-slate-500 dark:text-slate-400 text-[11px] space-y-1 mt-0.5">
                     {analysisA.disadvantages.map((dis, i) => (
                       <li key={i}>{dis}</li>
                     ))}
@@ -164,22 +164,22 @@ export const ScenarioComparisonModal: React.FC<ScenarioComparisonModalProps> = (
                   onApplyK(scenarioA);
                   onClose();
                 }}
-                className="w-full py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs rounded-lg transition-colors cursor-pointer mt-2"
+                className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs rounded-lg transition-colors cursor-pointer mt-2 shadow-xs"
               >
                 Aplicar Escenario A (K = {scenarioA})
               </button>
             </div>
 
             {/* Scenario B */}
-            <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
+            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold text-cyan-400 uppercase tracking-wider">
+                <span className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                   Escenario B (Alternativa de Negocio)
                 </span>
                 <select
                   value={scenarioB}
                   onChange={(e) => setScenarioB(Number(e.target.value))}
-                  className="px-2.5 py-1 bg-slate-950 border border-slate-700 rounded text-xs text-white font-mono"
+                  className="px-2.5 py-1 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded text-xs text-slate-900 dark:text-white font-mono"
                 >
                   {metrics.map((m) => (
                     <option key={m.k} value={m.k}>
@@ -190,27 +190,27 @@ export const ScenarioComparisonModal: React.FC<ScenarioComparisonModalProps> = (
               </div>
 
               <div className="grid grid-cols-2 gap-2 text-xs font-mono">
-                <div className="p-2 bg-slate-950/60 rounded border border-slate-800">
-                  <span className="text-slate-400 block text-[10px]">Silueta:</span>
-                  <span className="text-cyan-300 font-bold">{metricB?.silhouette}</span>
+                <div className="p-2 bg-white dark:bg-slate-900/60 rounded border border-slate-200 dark:border-slate-800">
+                  <span className="text-slate-500 dark:text-slate-400 block text-[10px]">Silueta:</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">{metricB?.silhouette}</span>
                 </div>
-                <div className="p-2 bg-slate-950/60 rounded border border-slate-800">
-                  <span className="text-slate-400 block text-[10px]">Inercia WSS:</span>
-                  <span className="text-indigo-300 font-bold">{metricB?.wss}</span>
+                <div className="p-2 bg-white dark:bg-slate-900/60 rounded border border-slate-200 dark:border-slate-800">
+                  <span className="text-slate-500 dark:text-slate-400 block text-[10px]">Inercia WSS:</span>
+                  <span className="text-blue-700 dark:text-blue-300 font-bold">{metricB?.wss}</span>
                 </div>
               </div>
 
               <div className="text-xs space-y-2 pt-1">
                 <div>
-                  <span className="text-slate-400 text-[11px] block">Factibilidad de Operación:</span>
+                  <span className="text-slate-500 dark:text-slate-400 text-[11px] block">Factibilidad de Operación:</span>
                   <span className={`font-semibold ${analysisB.operationalFeasibilityColor}`}>
                     {analysisB.operationalFeasibility}
                   </span>
                 </div>
 
                 <div>
-                  <span className="text-emerald-400 font-semibold block text-[11px]">✓ Ventajas:</span>
-                  <ul className="list-disc pl-4 text-slate-300 text-[11px] space-y-1 mt-0.5">
+                  <span className="text-emerald-700 dark:text-emerald-400 font-semibold block text-[11px]">✓ Ventajas:</span>
+                  <ul className="list-disc pl-4 text-slate-600 dark:text-slate-300 text-[11px] space-y-1 mt-0.5">
                     {analysisB.advantages.map((adv, i) => (
                       <li key={i}>{adv}</li>
                     ))}
@@ -218,8 +218,8 @@ export const ScenarioComparisonModal: React.FC<ScenarioComparisonModalProps> = (
                 </div>
 
                 <div>
-                  <span className="text-rose-400 font-semibold block text-[11px]">✕ Desventajas:</span>
-                  <ul className="list-disc pl-4 text-slate-400 text-[11px] space-y-1 mt-0.5">
+                  <span className="text-rose-700 dark:text-rose-400 font-semibold block text-[11px]">✕ Desventajas:</span>
+                  <ul className="list-disc pl-4 text-slate-500 dark:text-slate-400 text-[11px] space-y-1 mt-0.5">
                     {analysisB.disadvantages.map((dis, i) => (
                       <li key={i}>{dis}</li>
                     ))}
@@ -232,7 +232,7 @@ export const ScenarioComparisonModal: React.FC<ScenarioComparisonModalProps> = (
                   onApplyK(scenarioB);
                   onClose();
                 }}
-                className="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-100 font-semibold text-xs rounded-lg transition-colors cursor-pointer mt-2"
+                className="w-full py-2 bg-slate-800 dark:bg-slate-700 hover:bg-slate-900 text-white font-semibold text-xs rounded-lg transition-colors cursor-pointer mt-2 shadow-xs"
               >
                 Aplicar Escenario B (K = {scenarioB})
               </button>

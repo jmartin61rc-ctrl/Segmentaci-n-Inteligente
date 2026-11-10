@@ -141,7 +141,7 @@ export function exportToCSV(
   URL.revokeObjectURL(url);
 }
 
-// Export Presentation HTML / PowerPoint Slides Deck
+// Export Presentation HTML / PowerPoint Slides Deck (McKinsey / Bain / Deloitte Consulting Style)
 export function exportPresentationDeck(
   dataset: Dataset,
   clusterResult: ClusterResult,
@@ -153,127 +153,189 @@ export function exportPresentationDeck(
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Presentación Ejecutiva - Segmentación Inteligente</title>
+  <title>Entregable de Consultoría Estratégica - Intelligent Segmentation</title>
   <style>
-    body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; background: #0b0f19; color: #f8fafc; margin: 0; padding: 20px; }
-    .slide { max-width: 1000px; margin: 40px auto; background: #111827; border: 1px solid #1f2937; border-radius: 16px; padding: 48px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); page-break-after: always; }
-    h1 { color: #6366f1; font-size: 32px; margin-top: 0; }
-    h2 { color: #38bdf8; font-size: 24px; border-bottom: 1px solid #374151; padding-bottom: 12px; }
-    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 24px; }
-    .card { background: #1f2937; padding: 20px; border-radius: 12px; border-left: 4px solid #6366f1; }
-    .badge { display: inline-block; padding: 4px 12px; background: #312e81; color: #c7d2fe; border-radius: 6px; font-size: 13px; font-weight: 600; margin-bottom: 8px; }
-    .metric { font-size: 36px; font-weight: 800; color: #f8fafc; }
-    .sub { color: #94a3b8; font-size: 14px; margin-top: 4px; }
-    ul { padding-left: 20px; line-height: 1.6; color: #cbd5e1; }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: #0a0f1d; color: #f1f5f9; margin: 0; padding: 32px 16px; -webkit-font-smoothing: antialiased; }
+    .slide { max-width: 1120px; min-height: 630px; margin: 32px auto; background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 48px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); page-break-after: always; display: flex; flex-col; justify-content: space-between; }
+    .slide-header { border-bottom: 1px solid #334155; padding-bottom: 16px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: flex-end; }
+    .slide-title { font-size: 24px; font-weight: 700; color: #f8fafc; margin: 0; }
+    .slide-category { font-size: 11px; text-transform: uppercase; font-weight: 600; color: #3b82f6; letter-spacing: 0.05em; margin-bottom: 4px; display: block; }
+    .slide-footer { border-top: 1px solid #1e293b; padding-top: 14px; margin-top: 24px; display: flex; justify-content: space-between; font-size: 11px; color: #64748b; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .consulting-card { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 20px; }
+    .card-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; margin: 0 0 8px 0; }
+    .metric-value { font-size: 32px; font-weight: 800; color: #38bdf8; font-family: 'JetBrains Mono', monospace; }
+    .pillar-box { background: #131d31; border: 1px solid #1e293b; border-radius: 8px; padding: 18px; }
+    .pillar-title { font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 6px; }
+    ul { margin: 8px 0 0 0; padding-left: 18px; line-height: 1.6; font-size: 13px; color: #cbd5e1; }
     @media print {
-      body { background: #ffffff !important; color: #0f172a !important; }
-      .slide { background: #ffffff !important; border: 1px solid #e2e8f0 !important; color: #0f172a !important; box-shadow: none !important; }
-      h1, h2 { color: #1e1b4b !important; }
-      .card { background: #f8fafc !important; border: 1px solid #cbd5e1 !important; color: #0f172a !important; }
-      .badge { background: #e0e7ff !important; color: #3730a3 !important; }
-      .metric { color: #0f172a !important; }
-      .sub, ul { color: #334155 !important; }
+      body { background: #ffffff !important; color: #0f172a !important; padding: 0 !important; }
+      .slide { background: #ffffff !important; border: 1px solid #cbd5e1 !important; color: #0f172a !important; box-shadow: none !important; margin: 0 0 20px 0 !important; min-height: 95vh !important; }
+      .slide-header { border-bottom-color: #e2e8f0 !important; }
+      .slide-title { color: #0f172a !important; }
+      .consulting-card, .pillar-box { background: #f8fafc !important; border-color: #cbd5e1 !important; color: #0f172a !important; }
+      .card-title { color: #475569 !important; }
+      .metric-value { color: #1d4ed8 !important; }
+      ul { color: #334155 !important; }
+      .slide-footer { border-top-color: #e2e8f0 !important; color: #64748b !important; }
     }
   </style>
 </head>
 <body>
-  <!-- Slide 1: Portada -->
+  <!-- Slide 1: Portada Ejecutiva Consultoría -->
   <div class="slide">
-    <span class="badge">ESTRATEGIA ANALÍTICA DE CLIENTES</span>
-    <h1>Intelligent Segmentation Platform</h1>
-    <p style="font-size: 18px; color: #94a3b8;">Clustering Asistido por Inteligencia Artificial y Acciones Comerciales</p>
-    <div style="margin-top: 40px; border-top: 1px solid #374151; padding-top: 24px;">
-      <p><strong>Sector:</strong> ${context.sector}</p>
-      <p><strong>Objetivo:</strong> ${context.objective}</p>
-      <p><strong>Dataset:</strong> ${dataset.fileName} (${clusterResult.assignments.length} registros)</p>
-      <p><strong>Fecha:</strong> ${new Date().toLocaleDateString()}</p>
+    <div class="slide-header">
+      <div>
+        <span class="slide-category">DIAGNÓSTICO ESTRATÉGICO DE CLIENTES</span>
+        <h1 class="slide-title" style="font-size: 32px;">Segmentación Inteligente & Acciones Comerciales</h1>
+      </div>
+      <span style="font-size: 12px; color: #94a3b8; font-mono;">CONFIDENCIAL // ALTA DIRECCIÓN</span>
+    </div>
+    <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 24px;">
+      <div class="consulting-card" style="padding: 28px;">
+        <p style="font-size: 18px; line-height: 1.6; color: #e2e8f0; margin: 0;">
+          <strong>Sector:</strong> ${context.sector} &nbsp;|&nbsp; <strong>Objetivo:</strong> ${context.objective}
+        </p>
+        <p style="font-size: 14px; color: #94a3b8; margin: 8px 0 0 0;">
+          Base Analizada: ${dataset.fileName} &middot; ${clusterResult.assignments.length.toLocaleString()} entidades segmentadas con K = ${clusterResult.k} clusters.
+        </p>
+      </div>
+      <div class="grid-4">
+        <div class="consulting-card">
+          <div class="card-title">CALIDAD DE CLUSTERING</div>
+          <div class="metric-value">${clusterResult.silhouetteScore.toFixed(2)}</div>
+          <div style="font-size: 11px; color: #10b981; margin-top: 4px;">★ ${dashboard.silhouetteQuality?.label || 'Separabilidad Fuerte'}</div>
+        </div>
+        <div class="consulting-card">
+          <div class="card-title">INERCIA INTRA-GRUPO</div>
+          <div class="metric-value" style="color: #a78bfa;">${clusterResult.wss.toFixed(0)}</div>
+          <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">WSS Convergencia</div>
+        </div>
+        <div class="consulting-card">
+          <div class="card-title">SEGMENTO MAYORITARIO</div>
+          <div style="font-size: 16px; font-weight: 700; color: #f8fafc; margin-top: 6px;">${dashboard.dominantSegment}</div>
+          <div style="font-size: 11px; color: #38bdf8; margin-top: 4px;">Máximo volumen</div>
+        </div>
+        <div class="consulting-card">
+          <div class="card-title">FECHA DE EMISIÓN</div>
+          <div style="font-size: 15px; font-weight: 600; color: #f8fafc; margin-top: 8px;">${new Date().toLocaleDateString()}</div>
+          <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">Modelo Auditado</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Intelligent Segmentation Platform &middot; Executive Deliverable</span>
+      <span>Página 1</span>
     </div>
   </div>
 
-  <!-- Slide 2: Resumen Ejecutivo -->
+  <!-- Slide 2: Resumen Ejecutivo e Insights Clave -->
   <div class="slide">
-    <h2>01. Resumen Ejecutivo y Hallazgos Macro</h2>
-    <p style="font-size: 16px; line-height: 1.7; color: #e2e8f0;">${dashboard.executiveSummary}</p>
-    <div class="grid">
-      <div class="card">
-        <div class="badge">QUICK WINS (0-30 DÍAS)</div>
+    <div class="slide-header">
+      <div>
+        <span class="slide-category">SÍNTESIS DE ALTA DIRECCIÓN</span>
+        <h2 class="slide-title">01. Resumen Ejecutivo & 4 Pilares de Decisión</h2>
+      </div>
+      <span style="font-size: 12px; color: #94a3b8;">HALLAZGOS CLAVE</span>
+    </div>
+    <div style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+      <div class="consulting-card" style="padding: 18px;">
+        <p style="font-size: 14px; line-height: 1.6; margin: 0; color: #e2e8f0;">
+          ${dashboard.executiveSummary}
+        </p>
+      </div>
+      <div class="grid-2">
+        <div class="pillar-box" style="border-left: 4px solid #3b82f6;">
+          <div class="pillar-title" style="color: #60a5fa;">1. Hallazgo Principal</div>
+          <p style="font-size: 12px; color: #cbd5e1; margin: 0; line-height: 1.5;">${dashboard.insights.mainFinding}</p>
+        </div>
+        <div class="pillar-box" style="border-left: 4px solid #f59e0b;">
+          <div class="pillar-title" style="color: #fbbf24;">2. Riesgo Comercial</div>
+          <p style="font-size: 12px; color: #cbd5e1; margin: 0; line-height: 1.5;">${dashboard.insights.mainRisk}</p>
+        </div>
+        <div class="pillar-box" style="border-left: 4px solid #10b981;">
+          <div class="pillar-title" style="color: #34d399;">3. Oportunidad de Margen</div>
+          <p style="font-size: 12px; color: #cbd5e1; margin: 0; line-height: 1.5;">${dashboard.insights.mainOpportunity}</p>
+        </div>
+        <div class="pillar-box" style="border-left: 4px solid #8b5cf6;">
+          <div class="pillar-title" style="color: #a78bfa;">4. Recomendación Prioritaria</div>
+          <p style="font-size: 12px; color: #cbd5e1; margin: 0; line-height: 1.5;">${dashboard.insights.mainRecommendation}</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Intelligent Segmentation Platform &middot; Executive Deliverable</span>
+      <span>Página 2</span>
+    </div>
+  </div>
+
+  <!-- Slide 3: Portafolio de Segmentos -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <span class="slide-category">ESTRUCTURA DE CARTERA</span>
+        <h2 class="slide-title">02. Portafolio de Segmentos (K = ${clusterResult.k})</h2>
+      </div>
+      <span style="font-size: 12px; color: #94a3b8;">DISTRIBUCIÓN Y VALOR</span>
+    </div>
+    <div style="flex: 1; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+      ${profiles.map((p) => `
+        <div class="consulting-card" style="border-left: 4px solid ${p.color};">
+          <div style="display: flex; justify-content: space-between; align-items: baseline;">
+            <strong style="font-size: 15px; color: #f8fafc;">${p.businessName}</strong>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #38bdf8;">${p.percentage}% (${p.size})</span>
+          </div>
+          <p style="font-size: 12px; color: #94a3b8; margin: 4px 0 10px 0; font-style: italic;">${p.tagline}</p>
+          <div style="font-size: 11px; color: #cbd5e1; line-height: 1.5;">
+            <strong>Potencial:</strong> ${p.executiveProfile.commercialPotential}<br/>
+            <strong>Diferenciador:</strong> ${p.executiveProfile.keyDifferentiators}
+          </div>
+          <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid #334155; font-size: 11px; color: #38bdf8;">
+            <strong>Acción Precios:</strong> ${p.strategies.pricing}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+    <div class="slide-footer">
+      <span>Intelligent Segmentation Platform &middot; Executive Deliverable</span>
+      <span>Página 3</span>
+    </div>
+  </div>
+
+  <!-- Slide 4: Roadmap 30-90 Días -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <span class="slide-category">PLAN DE ACTIVACIÓN</span>
+        <h2 class="slide-title">03. Roadmap de Implementación (30 a 90 Días)</h2>
+      </div>
+      <span style="font-size: 12px; color: #10b981; font-weight: 600;">EJECUCIÓN INMEDIATA</span>
+    </div>
+    <div style="flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+      <div class="consulting-card" style="border-top: 3px solid #10b981;">
+        <div class="card-title" style="color: #34d399;">FASE 1: QUICK WINS (0 A 30 DÍAS)</div>
         <ul>
           ${dashboard.quickWins.map((qw) => `<li>${qw}</li>`).join('')}
         </ul>
       </div>
-      <div class="card">
-        <div class="badge">APUESTAS ESTRATÉGICAS (30-90 DÍAS)</div>
+      <div class="consulting-card" style="border-top: 3px solid #3b82f6;">
+        <div class="card-title" style="color: #60a5fa;">FASE 2: APUESTAS ESTRATÉGICAS (30 A 90 DÍAS)</div>
         <ul>
           ${dashboard.strategicBets.map((sb) => `<li>${sb}</li>`).join('')}
         </ul>
       </div>
     </div>
-  </div>
-
-  <!-- Slide 3: Panorama de Segmentos -->
-  <div class="slide">
-    <h2>02. Panorama General de Segmentos (K = ${clusterResult.k})</h2>
-    <div class="grid">
-      ${profiles
-        .map(
-          (p) => `
-        <div class="card" style="border-left-color: ${p.color};">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <strong style="font-size: 18px; color: ${p.color};">${p.businessName}</strong>
-            <span style="font-weight: 700;">${p.percentage}% (${p.size})</span>
-          </div>
-          <p class="sub">${p.tagline}</p>
-          <div style="margin-top: 12px; font-size: 13px; color: #cbd5e1;">
-            <strong>Potencial:</strong> ${p.executiveProfile.commercialPotential}<br/>
-            <strong>Riesgo:</strong> ${p.executiveProfile.associatedRisks}
-          </div>
-        </div>
-      `
-        )
-        .join('')}
+    <div class="slide-footer">
+      <span>Intelligent Segmentation Platform &middot; Executive Deliverable</span>
+      <span>Página 4</span>
     </div>
   </div>
-
-  <!-- Slide 4+: Detalles por segmento -->
-  ${profiles
-    .map(
-      (p, i) => `
-    <div class="slide">
-      <h2>03.${i + 1}. Detalle Estratégico: ${p.businessName}</h2>
-      <p class="sub" style="font-size: 16px;">${p.tagline} &middot; <strong>${p.size} entidades (${p.percentage}%)</strong></p>
-      
-      <div class="card" style="margin-top: 20px;">
-        <h4 style="margin: 0 0 8px 0; color: #38bdf8;">Perfil Ejecutivo</h4>
-        <p style="font-size: 14px; margin: 0 0 8px 0;">${p.executiveProfile.characterization}</p>
-        <p style="font-size: 14px; margin: 0; color: #94a3b8;"><strong>Diferenciador:</strong> ${p.executiveProfile.keyDifferentiators}</p>
-      </div>
-
-      <div class="grid" style="margin-top: 20px;">
-        <div class="card">
-          <strong style="color: #a78bfa;">Estrategia de Precios</strong>
-          <p style="font-size: 13px; margin-top: 6px;">${p.strategies.pricing}</p>
-        </div>
-        <div class="card">
-          <strong style="color: #34d399;">Fidelización & Retención</strong>
-          <p style="font-size: 13px; margin-top: 6px;">${p.strategies.loyalty}</p>
-        </div>
-        <div class="card">
-          <strong style="color: #38bdf8;">Innovación & Personalización</strong>
-          <p style="font-size: 13px; margin-top: 6px;">${p.strategies.innovation}</p>
-        </div>
-        <div class="card">
-          <strong style="color: #fbbf24;">Crecimiento (Cross & Up-sell)</strong>
-          <p style="font-size: 13px; margin-top: 6px;">${p.strategies.growth}</p>
-        </div>
-      </div>
-    </div>
-  `
-    )
-    .join('')}
 
   <script>
-    // Auto-trigger print to save as PDF or view as slides
-    console.log('Deck cargado exitosamente. Use Ctrl+P para guardar como PDF.');
+    console.log('Presentación ejecutiva cargada. Presione Ctrl+P para guardar como PDF.');
   </script>
 </body>
 </html>`;
@@ -282,9 +344,10 @@ export function exportPresentationDeck(
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `Presentacion_Segmentacion_Ejecutiva_K${clusterResult.k}.html`;
+  a.download = `Presentacion_Consultoria_Segmentacion_K${clusterResult.k}.html`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
+

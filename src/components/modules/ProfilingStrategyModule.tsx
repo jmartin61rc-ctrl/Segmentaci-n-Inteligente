@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Sparkles,
   TrendingUp,
-  Tag,
   Award,
   Zap,
   ShieldAlert,
@@ -10,9 +9,9 @@ import {
   ArrowLeft,
   DollarSign,
   Target,
-  RefreshCw,
   Edit2,
   Check,
+  Building2,
 } from 'lucide-react';
 import {
   BusinessContext,
@@ -65,34 +64,34 @@ export const ProfilingStrategyModule: React.FC<ProfilingStrategyModuleProps> = (
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 text-slate-800 dark:text-slate-100">
       {/* Header */}
-      <div className="border-b border-slate-800 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="border-b border-slate-200 dark:border-slate-800 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <h2 className="text-xl font-bold text-white tracking-tight">
-              Módulos 12, 13 y 14: Perfiles de Clientes & Estrategias Comerciales con IA
+            <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
+              Fichas de Clientes & Estrategias Comerciales con IA
             </h2>
-            <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-indigo-950 border border-indigo-700/60 text-indigo-300">
+            <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300">
               Motor: {aiSource}
             </span>
           </div>
-          <p className="text-sm text-slate-400 mt-0.5">
-            Perfilamiento ejecutivo, indicadores operativos y 5 dimensiones de acciones comerciales personalizadas por segmento.
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            Módulos 12, 13 y 14: Perfilamiento ejecutivo, indicadores operativos y 5 dimensiones de acción comercial.
           </p>
         </div>
 
         <button
           onClick={onRegenerateWithAI}
           disabled={isGeneratingAI}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-600 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 text-white font-semibold text-xs rounded-xl shadow-lg shadow-indigo-500/20 transition-all cursor-pointer disabled:opacity-50"
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs rounded-lg shadow-sm transition-all cursor-pointer disabled:opacity-50"
         >
           <Sparkles className={`w-3.5 h-3.5 ${isGeneratingAI ? 'animate-spin' : ''}`} />
-          <span>{isGeneratingAI ? 'Generando con Gemini...' : 'Regenerar con IA'}</span>
+          <span>{isGeneratingAI ? 'Analizando con Gemini...' : 'Reinterpretar con IA'}</span>
         </button>
       </div>
 
-      {/* Cluster Navigation Cards */}
+      {/* Segment Selector Tabs */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {profiles.map((p) => {
           const isSelected = p.clusterId === activeClusterId;
@@ -102,16 +101,17 @@ export const ProfilingStrategyModule: React.FC<ProfilingStrategyModuleProps> = (
             <div
               key={p.clusterId}
               onClick={() => setActiveClusterId(p.clusterId)}
-              style={{ borderLeftColor: p.color }}
-              className={`p-4 rounded-xl border text-left cursor-pointer transition-all border-l-4 ${
+              className={`p-4 rounded-xl border text-left cursor-pointer transition-all ${
                 isSelected
-                  ? 'bg-slate-900 border-slate-700 shadow-lg shadow-slate-950/40 ring-1 ring-indigo-500/50'
-                  : 'bg-slate-900/60 border-slate-800 hover:border-slate-700 hover:bg-slate-900'
+                  ? 'bg-blue-50/60 dark:bg-blue-950/40 border-blue-600 dark:border-blue-500 shadow-sm ring-1 ring-blue-600/30'
+                  : 'bg-white dark:bg-[#0f172a] border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
               }`}
             >
               <div className="flex items-center justify-between text-xs">
-                <span className="font-mono font-bold text-slate-400">Cluster {p.clusterId + 1}</span>
-                <span className="font-mono text-slate-200 font-semibold">
+                <span className="font-mono font-bold text-slate-500 dark:text-slate-400">
+                  Cluster {p.clusterId + 1}
+                </span>
+                <span className="font-mono text-slate-900 dark:text-white font-semibold">
                   {p.percentage}% ({p.size})
                 </span>
               </div>
@@ -122,25 +122,27 @@ export const ProfilingStrategyModule: React.FC<ProfilingStrategyModuleProps> = (
                     type="text"
                     value={tempName}
                     onChange={(e) => setTempName(e.target.value)}
-                    className="w-full px-2 py-1 bg-slate-950 border border-indigo-500 rounded text-xs text-white"
+                    className="w-full px-2 py-1 bg-white dark:bg-slate-900 border border-blue-500 rounded text-xs text-slate-900 dark:text-white focus:outline-none"
                     autoFocus
                   />
                   <button
                     onClick={() => handleSaveName(p.clusterId)}
-                    className="p-1 bg-indigo-600 rounded text-white"
+                    className="p-1 bg-blue-600 rounded text-white"
                   >
                     <Check className="w-3.5 h-3.5" />
                   </button>
                 </div>
               ) : (
                 <div className="mt-1.5 flex items-center justify-between group">
-                  <h4 className="font-bold text-sm text-slate-100 truncate">{p.businessName}</h4>
+                  <h4 className="font-bold text-sm text-slate-900 dark:text-white truncate">
+                    {p.businessName}
+                  </h4>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       handleStartEditName(p);
                     }}
-                    className="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-white transition-opacity p-0.5"
+                    className="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-slate-700 dark:hover:text-white transition-opacity p-0.5"
                     title="Editar nombre de segmento"
                   >
                     <Edit2 className="w-3 h-3" />
@@ -148,42 +150,40 @@ export const ProfilingStrategyModule: React.FC<ProfilingStrategyModuleProps> = (
                 </div>
               )}
 
-              <p className="text-[11px] text-slate-400 mt-1 line-clamp-2">{p.tagline}</p>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">
+                {p.tagline}
+              </p>
             </div>
           );
         })}
       </div>
 
-      {/* Main Profile & Strategy View for Active Segment */}
+      {/* Main Dossier for Active Segment */}
       {activeProfile && (
         <div className="space-y-6">
-          {/* Header of Active Segment */}
-          <div
-            style={{ borderLeftColor: activeProfile.color }}
-            className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 border-l-4 space-y-2"
-          >
+          {/* Active Segment Banner */}
+          <div className="p-5 rounded-xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 shadow-xs space-y-2">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div className="flex items-center gap-2">
-                <span
-                  style={{ backgroundColor: activeProfile.color }}
-                  className="w-3 h-3 rounded-full"
-                />
-                <h3 className="text-xl font-bold text-white tracking-tight">
+                <span className="w-2.5 h-2.5 rounded-full bg-blue-600 dark:bg-blue-400" />
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
                   {activeProfile.businessName}
                 </h3>
               </div>
-              <span className="text-xs px-3 py-1 rounded-lg bg-slate-950 border border-slate-800 font-mono text-slate-300">
-                Tamaño: {activeProfile.size} entidades ({activeProfile.percentage}% de la cartera)
+              <span className="text-xs px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-slate-700 dark:text-slate-300">
+                Participación: {activeProfile.size} entidades ({activeProfile.percentage}% de la cartera)
               </span>
             </div>
-            <p className="text-sm text-slate-300 italic">{activeProfile.tagline}</p>
+            <p className="text-xs text-slate-600 dark:text-slate-300 italic">
+              {activeProfile.tagline}
+            </p>
           </div>
 
           {/* Module 12: Distinctive Features Table & Drivers */}
-          <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5 space-y-3">
-            <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
-              <TrendingUp className="w-4 h-4 text-cyan-400" />
-              Módulo 12: Variables Clave y Comportamiento Distintivo (Valores Absolutos)
+          <div className="bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 rounded-xl p-5 space-y-3 shadow-xs">
+            <h4 className="text-xs font-bold text-slate-900 dark:text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
+              <TrendingUp className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+              Variables Tractoras y Desviación Respecto a la Media General
             </h4>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1">
@@ -192,21 +192,25 @@ export const ProfilingStrategyModule: React.FC<ProfilingStrategyModuleProps> = (
                 return (
                   <div
                     key={f.variable}
-                    className="p-3 bg-slate-950/70 rounded-xl border border-slate-800/80 space-y-1 font-mono text-xs"
+                    className="p-3 bg-slate-50 dark:bg-slate-900/60 rounded-xl border border-slate-200 dark:border-slate-800 space-y-1 font-mono text-xs"
                   >
-                    <span className="text-slate-400 truncate block text-[11px]">{f.variable}</span>
+                    <span className="text-slate-500 dark:text-slate-400 truncate block text-[11px] font-sans">
+                      {f.variable}
+                    </span>
                     <div className="flex items-baseline justify-between">
-                      <span className="text-base font-bold text-white">{f.clusterMean}</span>
+                      <span className="text-base font-bold text-slate-900 dark:text-white">
+                        {f.clusterMean}
+                      </span>
                       <span
                         className={`text-[11px] font-semibold ${
-                          isHigh ? 'text-emerald-400' : 'text-amber-400'
+                          isHigh ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'
                         }`}
                       >
                         {isHigh ? '+' : ''}
-                        {Math.round((f.ratio - 1) * 100)}% vs global
+                        {Math.round((f.ratio - 1) * 100)}% vs base
                       </span>
                     </div>
-                    <span className="text-[10px] text-slate-500 block">
+                    <span className="text-[10px] text-slate-400 dark:text-slate-400 block font-sans">
                       Media Global: {f.overallMean}
                     </span>
                   </div>
@@ -218,47 +222,47 @@ export const ProfilingStrategyModule: React.FC<ProfilingStrategyModuleProps> = (
           {/* Module 13: Executive & Operational Profiles */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Perfil Ejecutivo */}
-            <div className="p-5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-4">
-              <div className="flex items-center gap-2 border-b border-slate-800 pb-2">
-                <Target className="w-4 h-4 text-indigo-400" />
-                <h4 className="text-sm font-bold text-slate-100">
-                  Módulo 13.1: Perfil Ejecutivo
+            <div className="p-5 rounded-xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
+              <div className="flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-2">
+                <Target className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200">
+                  Perfil Ejecutivo (Comportamiento de Alto Nivel)
                 </h4>
               </div>
 
               <div className="space-y-3 text-xs">
                 <div>
-                  <span className="text-[11px] font-semibold text-slate-400 block uppercase">
+                  <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 block uppercase">
                     ¿Qué caracteriza al segmento?
                   </span>
-                  <p className="text-slate-200 mt-0.5 leading-relaxed">
+                  <p className="text-slate-700 dark:text-slate-200 mt-0.5 leading-relaxed">
                     {activeProfile.executiveProfile.characterization}
                   </p>
                 </div>
 
                 <div>
-                  <span className="text-[11px] font-semibold text-slate-400 block uppercase">
-                    ¿Qué lo diferencia drásticamente?
+                  <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 block uppercase">
+                    Factores Diferenciadores Clave
                   </span>
-                  <p className="text-slate-300 mt-0.5 leading-relaxed">
+                  <p className="text-slate-700 dark:text-slate-200 mt-0.5 leading-relaxed">
                     {activeProfile.executiveProfile.keyDifferentiators}
                   </p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 pt-1">
-                  <div className="p-2.5 bg-slate-950/60 rounded-lg border border-slate-800">
-                    <span className="text-[10px] font-bold text-emerald-400 uppercase block">
+                  <div className="p-3 bg-emerald-50/50 dark:bg-emerald-950/20 rounded-lg border border-emerald-200/80 dark:border-emerald-800/40">
+                    <span className="text-[10px] font-bold text-emerald-800 dark:text-emerald-300 uppercase block">
                       Potencial Comercial
                     </span>
-                    <p className="text-slate-300 text-[11px] mt-0.5">
+                    <p className="text-slate-700 dark:text-slate-300 text-[11px] mt-0.5 leading-snug">
                       {activeProfile.executiveProfile.commercialPotential}
                     </p>
                   </div>
-                  <div className="p-2.5 bg-slate-950/60 rounded-lg border border-slate-800">
-                    <span className="text-[10px] font-bold text-rose-400 uppercase block">
+                  <div className="p-3 bg-rose-50/50 dark:bg-rose-950/20 rounded-lg border border-rose-200/80 dark:border-rose-800/40">
+                    <span className="text-[10px] font-bold text-rose-800 dark:text-rose-300 uppercase block">
                       Riesgos Asociados
                     </span>
-                    <p className="text-slate-300 text-[11px] mt-0.5">
+                    <p className="text-slate-700 dark:text-slate-300 text-[11px] mt-0.5 leading-snug">
                       {activeProfile.executiveProfile.associatedRisks}
                     </p>
                   </div>
@@ -267,24 +271,24 @@ export const ProfilingStrategyModule: React.FC<ProfilingStrategyModuleProps> = (
             </div>
 
             {/* Perfil Operativo */}
-            <div className="p-5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-4">
-              <div className="flex items-center gap-2 border-b border-slate-800 pb-2">
-                <Zap className="w-4 h-4 text-cyan-400" />
-                <h4 className="text-sm font-bold text-slate-100">
-                  Módulo 13.2: Perfil Operativo & Canales
+            <div className="p-5 rounded-xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
+              <div className="flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-2">
+                <Zap className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200">
+                  Perfil Operativo & Canales de Contacto
                 </h4>
               </div>
 
               <div className="space-y-3 text-xs">
                 <div>
-                  <span className="text-[11px] font-semibold text-slate-400 block uppercase">
-                    Variables Operativas Críticas
+                  <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 block uppercase">
+                    Variables Operativas Relevantes
                   </span>
                   <div className="flex flex-wrap gap-1.5 mt-1">
                     {activeProfile.operationalProfile.keyVariables.map((v) => (
                       <span
                         key={v}
-                        className="px-2 py-1 bg-slate-950 border border-slate-800 rounded font-mono text-[11px] text-cyan-300"
+                        className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded font-mono text-[11px] text-slate-700 dark:text-slate-300"
                       >
                         {v}
                       </span>
@@ -293,19 +297,19 @@ export const ProfilingStrategyModule: React.FC<ProfilingStrategyModuleProps> = (
                 </div>
 
                 <div>
-                  <span className="text-[11px] font-semibold text-slate-400 block uppercase">
-                    Metas & Indicadores de Gestión (KPI Targets)
+                  <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 block uppercase">
+                    Indicadores Clave y Metas (KPI Targets)
                   </span>
-                  <p className="text-slate-200 mt-0.5 leading-relaxed font-mono">
+                  <p className="text-slate-700 dark:text-slate-200 mt-0.5 leading-relaxed font-mono">
                     {activeProfile.operationalProfile.kpiTargets}
                   </p>
                 </div>
 
                 <div>
-                  <span className="text-[11px] font-semibold text-slate-400 block uppercase">
-                    Canales de Contacto y Atención Recomendados
+                  <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 block uppercase">
+                    Canales de Interacción Recomendados
                   </span>
-                  <p className="text-slate-300 mt-0.5 leading-relaxed">
+                  <p className="text-slate-700 dark:text-slate-200 mt-0.5 leading-relaxed">
                     {activeProfile.operationalProfile.interactionChannels}
                   </p>
                 </div>
@@ -313,75 +317,75 @@ export const ProfilingStrategyModule: React.FC<ProfilingStrategyModuleProps> = (
             </div>
           </div>
 
-          {/* Module 14: 5 Strategic Business Dimensions */}
+          {/* Module 14: 5 Strategic Commercial Dimensions */}
           <div className="space-y-4 pt-2">
-            <h4 className="text-base font-bold text-white flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-indigo-400" />
-              Módulo 14: Estrategias de Negocio Asistidas por IA (5 Dimensiones de Acción)
+            <h4 className="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+              Estrategias Comerciales en 5 Dimensiones (Asistidas por IA)
             </h4>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {/* 1. Precios */}
-              <div className="p-4 rounded-xl bg-slate-900/70 border border-slate-800 space-y-2">
-                <div className="flex items-center gap-2 text-indigo-400">
+              <div className="p-4 rounded-xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 shadow-xs space-y-2">
+                <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
                   <DollarSign className="w-4 h-4" />
-                  <h5 className="font-bold text-xs uppercase tracking-wider text-slate-200">
+                  <h5 className="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-slate-200">
                     1. Estrategia de Precios
                   </h5>
                 </div>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   {activeProfile.strategies.pricing}
                 </p>
               </div>
 
               {/* 2. Fidelización */}
-              <div className="p-4 rounded-xl bg-slate-900/70 border border-slate-800 space-y-2">
-                <div className="flex items-center gap-2 text-emerald-400">
+              <div className="p-4 rounded-xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 shadow-xs space-y-2">
+                <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400">
                   <Award className="w-4 h-4" />
-                  <h5 className="font-bold text-xs uppercase tracking-wider text-slate-200">
+                  <h5 className="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-slate-200">
                     2. Estrategia de Fidelización
                   </h5>
                 </div>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   {activeProfile.strategies.loyalty}
                 </p>
               </div>
 
               {/* 3. Innovación */}
-              <div className="p-4 rounded-xl bg-slate-900/70 border border-slate-800 space-y-2">
-                <div className="flex items-center gap-2 text-cyan-400">
+              <div className="p-4 rounded-xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 shadow-xs space-y-2">
+                <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
                   <Sparkles className="w-4 h-4" />
-                  <h5 className="font-bold text-xs uppercase tracking-wider text-slate-200">
-                    3. Estrategia de Innovación
+                  <h5 className="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-slate-200">
+                    3. Innovación & Nuevos Servicios
                   </h5>
                 </div>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   {activeProfile.strategies.innovation}
                 </p>
               </div>
 
               {/* 4. Crecimiento */}
-              <div className="p-4 rounded-xl bg-slate-900/70 border border-slate-800 space-y-2">
-                <div className="flex items-center gap-2 text-amber-400">
+              <div className="p-4 rounded-xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 shadow-xs space-y-2">
+                <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
                   <TrendingUp className="w-4 h-4" />
-                  <h5 className="font-bold text-xs uppercase tracking-wider text-slate-200">
+                  <h5 className="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-slate-200">
                     4. Crecimiento (Cross & Up-selling)
                   </h5>
                 </div>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   {activeProfile.strategies.growth}
                 </p>
               </div>
 
               {/* 5. Riesgo */}
-              <div className="p-4 rounded-xl bg-slate-900/70 border border-slate-800 space-y-2 md:col-span-2 lg:col-span-2">
-                <div className="flex items-center gap-2 text-rose-400">
+              <div className="p-4 rounded-xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 shadow-xs space-y-2 md:col-span-2 lg:col-span-2">
+                <div className="flex items-center gap-2 text-rose-600 dark:text-rose-400">
                   <ShieldAlert className="w-4 h-4" />
-                  <h5 className="font-bold text-xs uppercase tracking-wider text-slate-200">
-                    5. Gestión de Riesgo, Retención & Prevención de Churn
+                  <h5 className="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-slate-200">
+                    5. Gestión de Riesgo, Retención & Prevención de Abandono
                   </h5>
                 </div>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   {activeProfile.strategies.riskMitigation}
                 </p>
               </div>
@@ -391,20 +395,20 @@ export const ProfilingStrategyModule: React.FC<ProfilingStrategyModuleProps> = (
       )}
 
       {/* Navigation Buttons */}
-      <div className="flex items-center justify-between pt-4 border-t border-slate-800">
+      <div className="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800">
         <button
           onClick={onBack}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-slate-300 font-medium text-xs rounded-xl border border-slate-800 transition-colors cursor-pointer"
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium text-xs rounded-lg border border-slate-200 dark:border-slate-800 transition-colors cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span>Volver a Algoritmos</span>
+          <span>Volver a Modelado</span>
         </button>
 
         <button
           onClick={onNext}
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm rounded-xl shadow-lg shadow-indigo-600/30 transition-all cursor-pointer"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs rounded-lg shadow-sm transition-all cursor-pointer"
         >
-          <span>Continuar a Dashboard Ejecutivo & Exportación</span>
+          <span>Ir a Dashboard Ejecutivo & Exportación</span>
           <ArrowRight className="w-4 h-4" />
         </button>
       </div>

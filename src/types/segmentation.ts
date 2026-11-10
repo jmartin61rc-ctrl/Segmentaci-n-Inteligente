@@ -196,6 +196,21 @@ export interface ClusterBusinessProfile {
   distinctiveFeatures: DistinctiveFeature[];
 }
 
+export interface SilhouetteQuality {
+  label: string;
+  score: number;
+  ratingStars: number;
+  qualityLevel: 'excelente' | 'buena' | 'moderada' | 'debil';
+  badgeColor: string;
+}
+
+export interface ExecutiveInsights {
+  mainFinding: string;
+  mainRisk: string;
+  mainOpportunity: string;
+  mainRecommendation: string;
+}
+
 export interface GlobalExecutiveDashboard {
   executiveSummary: string;
   quickWins: string[];
@@ -204,5 +219,22 @@ export interface GlobalExecutiveDashboard {
   kCount: number;
   dominantSegment: string;
   averageSilhouette: number;
+  silhouetteQuality: SilhouetteQuality;
+  modelStability: string;
+  insights: ExecutiveInsights;
   topDrivers: string[];
 }
+
+export type AppNavView =
+  | 'dashboard'
+  | 'upload'
+  | 'exploration'
+  | 'validation'
+  | 'transformation'
+  | 'selection_k'
+  | 'clustering'
+  | 'profiles'
+  | 'strategies'
+  | 'reports'
+  | 'settings';
+

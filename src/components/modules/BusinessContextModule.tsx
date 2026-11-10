@@ -51,13 +51,13 @@ export const BusinessContextModule: React.FC<BusinessContextModuleProps> = ({
   onBack,
 }) => {
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 text-slate-800 dark:text-slate-100">
       {/* Header */}
-      <div className="border-b border-slate-800 pb-3">
-        <h2 className="text-xl font-bold text-white tracking-tight">
+      <div className="border-b border-slate-200 dark:border-slate-800 pb-3">
+        <h2 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
           Módulo 4: Definición del Contexto de Negocio
         </h2>
-        <p className="text-sm text-slate-400">
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
           La plataforma utiliza este contexto para asignar nombres comerciales inteligentes a los clusters, generar perfiles de arquetipos y formular estrategias de negocio personalizadas con IA.
         </p>
       </div>
@@ -65,8 +65,10 @@ export const BusinessContextModule: React.FC<BusinessContextModuleProps> = ({
       {/* Sector Selection Grid */}
       <div className="space-y-3">
         <div className="flex items-center gap-2">
-          <Briefcase className="w-4 h-4 text-indigo-400" />
-          <h3 className="text-sm font-semibold text-slate-200">1. Seleccione el Sector o Industria Económica</h3>
+          <Briefcase className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+          <h3 className="text-xs font-bold text-slate-900 dark:text-slate-200 uppercase tracking-wider">
+            1. Seleccione el Sector o Industria Económica
+          </h3>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
@@ -78,13 +80,13 @@ export const BusinessContextModule: React.FC<BusinessContextModuleProps> = ({
                 onClick={() => onUpdateContext({ ...context, sector: s.name })}
                 className={`p-3.5 rounded-xl border text-left cursor-pointer transition-all ${
                   isSelected
-                    ? 'bg-indigo-950/50 border-indigo-500 shadow-md shadow-indigo-500/10'
-                    : 'bg-slate-900/60 border-slate-800 hover:border-slate-700 hover:bg-slate-900'
+                    ? 'bg-blue-50/60 dark:bg-blue-950/40 border-blue-600 dark:border-blue-500 shadow-xs ring-1 ring-blue-600/30'
+                    : 'bg-white dark:bg-[#0f172a] border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
                 }`}
               >
-                <span className="text-2xl">{s.icon}</span>
-                <h4 className="font-semibold text-xs text-slate-100 mt-2">{s.name}</h4>
-                <p className="text-[11px] text-slate-400 mt-1 line-clamp-2">{s.desc}</p>
+                <span className="text-xl">{s.icon}</span>
+                <h4 className="font-semibold text-xs text-slate-900 dark:text-white mt-2">{s.name}</h4>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">{s.desc}</p>
               </div>
             );
           })}
@@ -94,8 +96,10 @@ export const BusinessContextModule: React.FC<BusinessContextModuleProps> = ({
       {/* Objective Selection Grid */}
       <div className="space-y-3 pt-2">
         <div className="flex items-center gap-2">
-          <Target className="w-4 h-4 text-cyan-400" />
-          <h3 className="text-sm font-semibold text-slate-200">2. Seleccione el Objetivo Estratégico de la Segmentación</h3>
+          <Target className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+          <h3 className="text-xs font-bold text-slate-900 dark:text-slate-200 uppercase tracking-wider">
+            2. Seleccione el Objetivo Estratégico de la Segmentación
+          </h3>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -108,20 +112,20 @@ export const BusinessContextModule: React.FC<BusinessContextModuleProps> = ({
                 onClick={() => onUpdateContext({ ...context, objective: obj.name })}
                 className={`p-3.5 rounded-xl border text-left cursor-pointer transition-all flex items-start gap-3 ${
                   isSelected
-                    ? 'bg-cyan-950/40 border-cyan-500 shadow-md shadow-cyan-500/10'
-                    : 'bg-slate-900/60 border-slate-800 hover:border-slate-700 hover:bg-slate-900'
+                    ? 'bg-blue-50/60 dark:bg-blue-950/40 border-blue-600 dark:border-blue-500 shadow-xs ring-1 ring-blue-600/30'
+                    : 'bg-white dark:bg-[#0f172a] border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
                 }`}
               >
                 <div
-                  className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
-                    isSelected ? 'bg-cyan-500 text-slate-950' : 'bg-slate-800 text-slate-400'
+                  className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${
+                    isSelected ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-xs text-slate-100">{obj.name}</h4>
-                  <p className="text-[11px] text-slate-400 mt-0.5">{obj.desc}</p>
+                  <h4 className="font-semibold text-xs text-slate-900 dark:text-white">{obj.name}</h4>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{obj.desc}</p>
                 </div>
               </div>
             );
@@ -130,9 +134,9 @@ export const BusinessContextModule: React.FC<BusinessContextModuleProps> = ({
       </div>
 
       {/* KPI and Context Summary */}
-      <div className="p-4 rounded-xl bg-slate-900/70 border border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="p-4 rounded-xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 shadow-xs grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-semibold text-slate-300 mb-1">
+          <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
             Indicador Clave de Rendimiento (KPI) Prioritario:
           </label>
           <input
@@ -140,28 +144,28 @@ export const BusinessContextModule: React.FC<BusinessContextModuleProps> = ({
             value={context.primaryKPI}
             onChange={(e) => onUpdateContext({ ...context, primaryKPI: e.target.value })}
             placeholder="Ej: Customer Lifetime Value (LTV), Tasa de Churn, Margen Bruto, Ticket Promedio..."
-            className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-xs text-slate-200 focus:outline-none focus:border-indigo-500 font-mono"
+            className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-500 font-mono"
           />
-          <p className="text-[11px] text-slate-400 mt-1">
+          <p className="text-[11px] text-slate-400 dark:text-slate-400 mt-1">
             Permite a la IA orientar las metas operativas hacia este KPI específico.
           </p>
         </div>
 
-        <div className="p-3 bg-slate-950/60 rounded-lg border border-slate-800/80 text-xs text-slate-300 space-y-1">
-          <span className="text-[11px] font-semibold text-indigo-400 uppercase tracking-wider block">
+        <div className="p-3 bg-slate-50 dark:bg-slate-900/60 rounded-lg border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300 space-y-1">
+          <span className="text-[11px] font-semibold text-blue-700 dark:text-blue-400 uppercase tracking-wider block">
             Impacto en el Motor Analítico
           </span>
-          <p className="text-slate-400 text-[11px] leading-relaxed">
+          <p className="text-slate-500 dark:text-slate-400 text-[11px] leading-relaxed">
             El contexto seleccionado ajustará las ponderaciones de la heurística de negocio, los nombres asignados a los centroides (ej: &quot;Clientes VIP&quot; vs &quot;Suscriptores Alta Voz&quot;) y las 5 dimensiones de estrategias comerciales (Precios, Lealtad, Innovación, Crecimiento y Riesgo).
           </p>
         </div>
       </div>
 
       {/* Navigation Buttons */}
-      <div className="flex items-center justify-between pt-4 border-t border-slate-800">
+      <div className="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800">
         <button
           onClick={onBack}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-slate-300 font-medium text-xs rounded-xl border border-slate-800 transition-colors cursor-pointer"
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium text-xs rounded-lg border border-slate-200 dark:border-slate-800 transition-colors cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Volver a Variables</span>
@@ -169,7 +173,7 @@ export const BusinessContextModule: React.FC<BusinessContextModuleProps> = ({
 
         <button
           onClick={onNext}
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm rounded-xl shadow-lg shadow-indigo-600/30 transition-all cursor-pointer"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs rounded-lg shadow-sm transition-all cursor-pointer"
         >
           <span>Continuar a Análisis Descriptivo & Sesgo</span>
           <ArrowRight className="w-4 h-4" />
