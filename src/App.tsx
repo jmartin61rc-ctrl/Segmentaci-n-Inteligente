@@ -69,8 +69,14 @@ const VIEW_TO_STEP_MAP: Record<AppNavView, number> = {
 };
 
 export default function App() {
-  // Theme state: dark (corporate deep blue/slate) vs light
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  // Theme state: dark (corporate deep blue/slate) vs light, with localStorage persistence
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('isp_theme');
+      if (saved === 'light' || saved === 'dark') return saved;
+    }
+    return 'dark';
+  });
 
   // Sidebar collapse state
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState<boolean>(false);
@@ -85,12 +91,20 @@ export default function App() {
   // Transformation tab toggle when in 'transformation' view: 'stats' (Mods 5-6) or 'scaling' (Mods 7-8)
   const [prepTab, setPrepTab] = useState<'stats' | 'scaling'>('scaling');
 
-  // Apply dark theme class to root html element
+  // Synchronize dark theme class with documentElement, body, and localStorage
   useEffect(() => {
-    if (theme === 'dark') {
+    const isDark = theme === 'dark';
+    if (isDark) {
       document.documentElement.classList.add('dark');
+      document.body.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
+      document.body.classList.remove('dark');
+    }
+    try {
+      localStorage.setItem('isp_theme', theme);
+    } catch {
+      // Ignore in restricted environments
     }
   }, [theme]);
 
@@ -329,7 +343,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#070b14] text-slate-800 dark:text-slate-100 flex flex-row font-sans selection:bg-blue-600/20 selection:text-blue-900 dark:selection:bg-blue-500/30 dark:selection:text-blue-200 antialiased">
+    <div className={`min-h-screen ${theme === 'dark' ? 'dark' : ''} bg-slate-50 dark:bg-[#070b14] text-slate-800 dark:text-slate-100 flex flex-row font-sans selection:bg-blue-600/20 selection:text-blue-900 dark:selection:bg-blue-500/30 dark:selection:text-blue-200 antialiased`}>
       {/* Enterprise Collapsible Sidebar */}
       <Sidebar
         currentView={currentView}
